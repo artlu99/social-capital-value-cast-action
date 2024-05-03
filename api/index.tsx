@@ -32,13 +32,15 @@ app.castAction(
   "/scv",
   async (c) => {
     const {
+      verified,
       actionData: {
         castId: { hash: castHash },
       },
     } = c;
 
-    const { data, error } = await fetchQuery(
-      `
+    if (verified) {
+      const { data, error } = await fetchQuery(
+        `
     query MyQuery($blockchain: EveryBlockchain!, $_eq: String) {
       FarcasterCasts(input: {blockchain: $blockchain, filter: {hash: {_eq: $_eq}}}) {
         Cast {
@@ -52,16 +54,20 @@ app.castAction(
       }
     }
     `,
-      { blockchain: "ALL", _eq: castHash }
-    );
+        { blockchain: "ALL", _eq: castHash }
+      );
 
-    if (error) {
-      console.log(error);
-      return c.message({ message: "ERR: Airstack query" });
+      if (error) {
+        console.log(error);
+        return c.message({ message: "ERR: Airstack query" });
+      }
+      console.log(JSON.stringify(data));
+      const scvFormattedValue = data.FarcasterCasts.Cast.socialCapitalValue
+        .formattedValue as string;
+      return c.message({ message: scvFormattedValue });
+    } else {
+      return c.message({ message: "Unverified FID" });
     }
-    console.log(JSON.stringify(data));
-    const scvFormattedValue = data.FarcaterCasts.Cast.socialCapitalValue.formattedValue as string;
-    return c.message({ message: scvFormattedValue });
   },
   {
     name: "Airstack SCV 😎",
