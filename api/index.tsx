@@ -62,11 +62,10 @@ app.castAction(
         return c.message({ message: "ERR: Airstack query" });
       }
       const firstCast = data?.FarcasterCasts?.Cast[0];
-      console.log(JSON.stringify(firstCast));
       const scvFormattedValue = (firstCast?.socialCapitalValue.formattedValue ||
-        "0") as string;
+        0) as number;
       console.log(scvFormattedValue);
-      return c.message({ message: scvFormattedValue });
+      return c.message({ message: scvFormattedValue.toString() });
     } else {
       return c.message({ message: "Unverified FID" });
     }
