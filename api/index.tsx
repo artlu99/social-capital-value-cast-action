@@ -70,7 +70,7 @@ app.frame("/", (c) => {
       </div>
     ),
     intents: [
-      <Button.AddCastAction action="scv">Add Action</Button.AddCastAction>,
+      <Button.AddCastAction action="/scv">Add Action</Button.AddCastAction>,
       <Button.Link href="https://frog.fm">🐸 Frog</Button.Link>,
       <Button.Link href="https://farcaster.id/artlu">@artlu 👃</Button.Link>,
       <Button.Link href={ABOUT_SCV_URL}>SCV</Button.Link>,
