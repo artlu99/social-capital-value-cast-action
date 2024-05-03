@@ -56,10 +56,12 @@ app.castAction(
     );
 
     if (error) {
+      console.log(error)
       return c.message({ message: "ERR: Airstack query" });
     }
     console.log(data);
-    return c.message({ message: "Success" });
+    const scvFormattedValue = data.socialCapitalValue.formattedValue;
+    return c.message({ message: scvFormattedValue });
   },
   {
     name: "Airstack SCV 😎",
