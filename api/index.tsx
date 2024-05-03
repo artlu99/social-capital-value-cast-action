@@ -34,7 +34,8 @@ app.castAction(
     const {
       verified,
       actionData: {
-        castId: { hash: castHash },
+        fid,
+        castId: { fid: castFid, hash: castHash },
       },
     } = c;
 
@@ -66,9 +67,16 @@ app.castAction(
       const formattedValue = (firstCast?.socialCapitalValue.formattedValue ||
         0) as number;
 
-      return c.message({
-        message: `SCV: ${(Math.round(formattedValue * 100) / 100).toLocaleString()}`,
-      });
+      const message = `SCV: ${(
+        Math.round(formattedValue * 100) / 100
+      ).toLocaleString()}`;
+
+      // logging
+      console.log(
+        `${fid} retrieved ${message} on fid: ${castFid}, hash: ${castHash}`
+      );
+
+      return c.message({ message });
     } else {
       return c.message({ message: "Unverified FID" });
     }
