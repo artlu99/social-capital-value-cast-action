@@ -62,7 +62,7 @@ app.castAction(
         return c.message({ message: "ERR: Airstack query" });
       }
       console.log(JSON.stringify(data));
-      const scvFormattedValue = data.FarcasterCasts.Cast.socialCapitalValue
+      const scvFormattedValue = data?.FarcasterCasts?.Cast[0].socialCapitalValue
         .formattedValue as string;
       return c.message({ message: scvFormattedValue });
     } else {
