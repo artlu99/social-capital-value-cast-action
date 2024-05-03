@@ -84,7 +84,7 @@ app.castAction(
     return c.message({ message: "Success" });
   },
   {
-    name: "Social Capital Value 😎",
+    name: "Airstack SCV 😎",
     icon: "sun",
     description:
       "Airstack's 😎 Social Capital Value (SCV), a  metric to identify high-quality Trending Casts on Farcaster.",
