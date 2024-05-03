@@ -59,9 +59,9 @@ app.castAction(
       console.log(error);
       return c.message({ message: "ERR: Airstack query" });
     }
-    console.log(data);
-    const scvFormattedValue = data.socialCapitalValue.formattedValue;
-    return c.message({ message: scvFormattedValue });
+    console.log(JSON.stringify(data));
+    // const scvFormattedValue = data.socialCapitalValue.formattedValue;
+    return c.message({ message: "Success!" });
   },
   {
     name: "Airstack SCV 😎",
