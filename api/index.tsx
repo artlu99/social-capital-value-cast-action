@@ -12,7 +12,7 @@ const ADD_URL =
 
 const ABOUT_ACTION_URL =
   process.env.ABOUT_ACTION_URL ??
-  "https://social-capital-value-cast-action.vercel.app";
+  "https://social-capital-value-cast-action.vercel.app/api/about";
 
 const ABOUT_SCV_URL =
   process.env.ABOUT_SCV_URL ??
@@ -91,6 +91,10 @@ app.castAction(
     aboutUrl: ABOUT_ACTION_URL,
   }
 );
+
+app.hono.get("/about", (c) => {
+  return c.text("Social Capital Value Cast Action by @artlu");
+});
 
 // @ts-ignore
 const isEdgeFunction = typeof EdgeFunction !== "undefined";
