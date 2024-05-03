@@ -18,11 +18,6 @@ const ABOUT_SCV_URL =
   process.env.ABOUT_SCV_URL ??
   "https://docs.airstack.xyz/airstack-docs-and-faqs/abstractions/trending-casts/social-capital-value";
 
-// Uncomment to use Edge Runtime.
-export const config = {
-  runtime: "edge",
-};
-
 export const app = new Frog({
   assetsPath: "/",
   basePath: "/api",
