@@ -65,6 +65,7 @@ app.castAction(
       console.log(JSON.stringify(firstCast));
       const scvFormattedValue = (firstCast?.socialCapitalValue.formattedValue ||
         "0") as string;
+      console.log(scvFormattedValue);
       return c.message({ message: scvFormattedValue });
     } else {
       return c.message({ message: "Unverified FID" });
