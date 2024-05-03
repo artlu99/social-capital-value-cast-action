@@ -1,7 +1,10 @@
 import { Button, Frog } from "frog";
 import { devtools } from "frog/dev";
+import { neynar } from "frog/hubs";
 import { serveStatic } from "frog/serve-static";
 import { handle } from "frog/vercel";
+
+const NEYNAR_API_KEY = process.env.NEYNAR_API_KEY ?? "NEYNAR_FROG_FM";
 
 const ADD_URL =
   process.env.ADD_URL ??
@@ -18,12 +21,14 @@ const ABOUT_SCV_URL =
 export const app = new Frog({
   assetsPath: "/",
   basePath: "/api",
+  hub: neynar({ apiKey: NEYNAR_API_KEY }),
+  browserLocation: ADD_URL,
 });
 
 app.castAction(
   "/scv",
   (c) => {
-    return c.res({ type: "message", message: "Success" });
+    return c.message({ message: "Success" });
   },
   {
     name: "Airstack SCV 😎",
