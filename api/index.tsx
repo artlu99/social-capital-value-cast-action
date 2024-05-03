@@ -64,7 +64,7 @@ app.castAction(
       }
 
       const firstCast = data?.FarcasterCasts?.Cast[0];
-      const formattedValue = (firstCast?.socialCapitalValue.formattedValue ||
+      const formattedValue = (firstCast?.socialCapitalValue?.formattedValue ||
         0) as number;
 
       const message = `SCV: ${(
