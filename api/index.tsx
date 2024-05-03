@@ -18,8 +18,21 @@ const ABOUT_SCV_URL =
 export const app = new Frog({
   assetsPath: "/",
   basePath: "/api",
-  browserLocation: ADD_URL,
 });
+
+app.castAction(
+  "/scv",
+  (c) => {
+    return c.message({ message: "Success" });
+  },
+  {
+    name: "Airstack SCV 😎",
+    icon: "sun",
+    description:
+      "Airstack's 😎 Social Capital Value (SCV), a  metric to identify high-quality Trending Casts on Farcaster.",
+    aboutUrl: ABOUT_ACTION_URL,
+  }
+);
 
 app.frame("/", (c) => {
   const { status } = c;
@@ -68,20 +81,6 @@ app.frame("/", (c) => {
     ],
   });
 });
-
-app.castAction(
-  "/scv",
-  (c) => {
-    return c.message({ message: "Success" });
-  },
-  {
-    name: "Airstack SCV 😎",
-    icon: "sun",
-    description:
-      "Airstack's 😎 Social Capital Value (SCV), a  metric to identify high-quality Trending Casts on Farcaster.",
-    aboutUrl: ABOUT_ACTION_URL,
-  }
-);
 
 app.hono.get("/about", (c) => {
   return c.text("Social Capital Value Cast Action by @artlu");
