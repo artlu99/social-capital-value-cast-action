@@ -1,3 +1,4 @@
+import { init, fetchQuery } from "@airstack/node";
 import { Button, Frog } from "frog";
 import { devtools } from "frog/dev";
 import { neynar } from "frog/hubs";
@@ -5,18 +6,20 @@ import { serveStatic } from "frog/serve-static";
 import { handle } from "frog/vercel";
 
 const NEYNAR_API_KEY = process.env.NEYNAR_API_KEY ?? "NEYNAR_FROG_FM";
+const AIRSTACK_API_KEY =
+  process.env.AIRSTACK_API_KEY ?? "YOUR_AIRSTACK_API_KEY";
 
 const ADD_URL =
   process.env.ADD_URL ??
   "https://warpcast.com/~/add-cast-action?url=https://social-capital-value-cast-action.vercel.app/api/scv";
-
 const ABOUT_ACTION_URL =
   process.env.ABOUT_ACTION_URL ??
   "https://social-capital-value-cast-action.vercel.app/api/about";
-
 const ABOUT_SCV_URL =
   process.env.ABOUT_SCV_URL ??
   "https://docs.airstack.xyz/airstack-docs-and-faqs/abstractions/trending-casts/social-capital-value";
+
+init(AIRSTACK_API_KEY, "prod");
 
 export const app = new Frog({
   assetsPath: "/",
@@ -27,7 +30,35 @@ export const app = new Frog({
 
 app.castAction(
   "/scv",
-  (c) => {
+  async (c) => {
+    const {
+      actionData: {
+        castId: { hash: castHash },
+      },
+    } = c;
+
+    const { data, error } = await fetchQuery(
+      `
+    query MyQuery($blockchain: EveryBlockchain!, $_eq: String) {
+      FarcasterCasts(input: {blockchain: $blockchain, filter: {hash: {_eq: $_eq}}}) {
+        Cast {
+          fid
+          hash
+          socialCapitalValue {
+            formattedValue
+            rawValue
+          }
+        }
+      }
+    }
+    `,
+      { castHash }
+    );
+
+    if (error) {
+      return c.message({ message: "ERR: Airstack query" });
+    }
+    console.log(data);
     return c.message({ message: "Success" });
   },
   {
