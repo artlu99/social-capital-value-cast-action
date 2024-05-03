@@ -67,7 +67,7 @@ app.castAction(
         0) as number;
 
       return c.message({
-        message: `SCV: ${Math.round(formattedValue * 100) / 100}`,
+        message: `SCV: ${(Math.round(formattedValue * 100) / 100).toLocaleString()}`,
       });
     } else {
       return c.message({ message: "Unverified FID" });
