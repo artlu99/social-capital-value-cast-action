@@ -52,7 +52,7 @@ app.castAction(
       }
     }
     `,
-      { $blockchain: "ALL", $_eq: castHash }
+      { blockchain: "ALL", _eq: castHash }
     );
 
     if (error) {
