@@ -23,7 +23,7 @@ export const app = new Frog({
 app.castAction(
   "/scv",
   (c) => {
-    return c.message({ message: "Success" });
+    return c.res({ type: "message", message: "Success" });
   },
   {
     name: "Airstack SCV 😎",
