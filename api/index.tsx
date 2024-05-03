@@ -39,8 +39,8 @@ app.castAction(
 
     const { data, error } = await fetchQuery(
       `
-    query MyQuery($_eq: String) {
-      FarcasterCasts(input: {filter: {hash: {_eq: $_eq}}}) {
+    query MyQuery($blockchain: EveryBlockchain!, $_eq: String) {
+      FarcasterCasts(input: {blockchain: $blockchain, filter: {hash: {_eq: $_eq}}}) {
         Cast {
           fid
           hash
@@ -52,7 +52,7 @@ app.castAction(
       }
     }
     `,
-      { castHash }
+      { $blockchain: "ALL", $_eq: castHash }
     );
 
     if (error) {
