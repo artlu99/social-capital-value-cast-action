@@ -1,7 +1,7 @@
 import { Button, Frog } from "frog";
 import { devtools } from "frog/dev";
 import { serveStatic } from "frog/serve-static";
-import { neynar } from "frog/hubs";
+import { pinata, neynar } from "frog/hubs";
 import { handle } from "frog/vercel";
 
 const NEYNAR_API_KEY = process.env.NEYNAR_API_KEY ?? "NEYNAR_FROG_FM";
@@ -21,7 +21,7 @@ const ABOUT_SCV_URL =
 export const app = new Frog({
   assetsPath: "/",
   basePath: "/api",
-  hub: neynar({ apiKey: NEYNAR_API_KEY }),
+  hub: pinata(),
   browserLocation: ADD_URL,
 });
 
